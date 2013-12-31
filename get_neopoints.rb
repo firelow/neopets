@@ -39,7 +39,18 @@ begin
 
   # Collect bank interest
   browser.goto 'http://www.neopets.com/bank.phtml'
-  browser.button(value: /Collect Interest/).click
+  # Signup for Bank Account
+  if browser.td(class: 'contentModuleHeaderAlt').exist?
+    browser.text_field(name: 'name').set config["np_user"]
+    browser.text_field(name: 'add1').set '600 Cheshire Way'
+    browser.select_list(name: 'employment').select 'Korbat Keeper'
+    browser.select_list(name: 'salary').select '10,000 to 25,000 NP'
+    browser.select_list(name: 'account_type').select 'Neopian Student (min 1,000 NP)'
+    browser.text_field(name: 'initial_deposit').set 1100
+    browser.button(value: 'Sign Me Up').click
+  else
+    browser.button(value: /Collect Interest/).click
+  end
 
   # Visit Coltzan's shrine
   browser.goto 'http://www.neopets.com/desert/shrine.phtml'
