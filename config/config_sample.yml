@@ -1,0 +1,4 @@
+np_user: NEOPETS_USERNAME
+np_pass: NEOPETS_PASSWORD
+np_name: NEOPETS_NAME
+np_max_undeposited_pts: 1000
