@@ -25,20 +25,11 @@ CLOSE_BROWSER = config["close_browser_on_exit"]
 
 def break(steps = 1, &block)
   if !config["debugger"]
-    yield
+    yield if block
     return
   end
 
-  if block
-    debugger(steps) do
-      yield
-    end
-  else
-    debugger(steps)
+  debugger(steps) do
+    yield if block
   end
-end
-
-def break(steps = 1)
-  return if !config["debugger"]
-  debugger steps
 end
