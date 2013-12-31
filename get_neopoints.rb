@@ -15,6 +15,8 @@ rescue Exception => e
   exit 1
 end
 
+require 'debugger' if config["debugger"]
+
 USERNAME = config["np_user"]
 PASSWORD = config["np_pass"]
 NEOPET_NAME = config["np_name"]

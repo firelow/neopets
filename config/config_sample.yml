@@ -3,3 +3,4 @@ np_pass: NEOPETS_PASSWORD
 np_name: NEOPETS_NAME
 np_max_undeposited_pts: 1000
 close_browser_on_exit: true
+debugger: false
