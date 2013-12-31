@@ -39,21 +39,14 @@ begin
 
   # Collect bank interest
   browser.goto 'http://www.neopets.com/bank.phtml'
+  # Signup for Bank Account
   if browser.td(class: 'contentModuleHeaderAlt').exist?
     browser.text_field(name: 'name').set config["np_user"]
     browser.text_field(name: 'add1').set '600 Cheshire Way'
-
-    # current_employment = ['Chia Custodian', 'Wocky Warden', 'Korbat Keeper', 'Grarrl Guardian', 'JubJub Janitor', 'Lenny Librarian', 'Kiko Caretaker', 'Scorchio Supervisor', 'Pteri Policeman', 'Blumaroo Babysitter', 'Chomby Curator', 'Nimmo Nurse', 'Skeith Secretary', 'Aisha Assistant', 'Techo Technician', 'Gelert Gardener', 'Meerca Master', 'Elephante Editor', 'Quiggle Quantum Physicist', 'Other'].sample  
-    # browser.select_list(name: 'salary').select 'Korbat Keeper'
-    browser.execute_script("return $($('select')[0]).children()[3]")
-
-    # annual_salary = ['10,000 NP and below', '10,000 to 25,000 NP', '25,001 to 40,000 NP', '40,001 to 60,000 NP', '60,001 to 90,000 NP', '90,001 to 120,000 NP', '120,001 NP and above'].sample
-    # browser.select_list(name: 'employment').select '10,000 to 25,000 NP'
-
-    account_number = (1..15).to_a.sample
-    browser.select_list(name: 'account_type').option(value: '3')
-
-    browser.text_field(name: 'initial_deposit').set 500
+    browser.select_list(name: 'employment').select 'Korbat Keeper'
+    browser.select_list(name: 'salary').select '10,000 to 25,000 NP'
+    browser.select_list(name: 'account_type').select 'Neopian Student (min 1,000 NP)'
+    browser.text_field(name: 'initial_deposit').set 1100
     browser.button(value: 'Sign Me Up').click
   else
     browser.button(value: /Collect Interest/).click
