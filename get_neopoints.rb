@@ -19,6 +19,7 @@ USERNAME = config["np_user"]
 PASSWORD = config["np_pass"]
 NEOPET_NAME = config["np_name"]
 NP_TO_KEEP = config["np_max_undeposited_pts"] # Maximum NP to leave undeposited
+CLOSE_BROWSER = config["close_browser_on_exit"]
 
 browser = Watir::Browser.new :chrome
 jellyneoBrowser = Watir::Browser.new :chrome
@@ -136,5 +137,5 @@ begin
   end
 ensure
   jellyneoBrowser.close
-  browser.close
+  browser.close if CLOSE_BROWSER
 end
