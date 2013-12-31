@@ -9,3 +9,8 @@ Help Lena get some paint brushes!
 
 ### Running
 * `bundle exec ruby get_neopoints.rb`
+
+## Neopet Requirements
+* Have a bank account
+* Access to the Lab Ray (TODO, make optional)
+* Account must be at least 48 hours old.
