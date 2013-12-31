@@ -14,3 +14,8 @@ Help Lena get some paint brushes!
 * Have a bank account
 * Access to the Lab Ray (TODO, make optional)
 * Account must be at least 48 hours old.
+
+### Debugging
+For breakpoints, make sure your config.yml file has the `debugger: true` option
+set.  In addition to that, use the function `break(...)` to add breakpoints in
+the code.
