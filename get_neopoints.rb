@@ -18,8 +18,9 @@ begin
 
   # Collect bank interest
   browser.goto 'http://www.neopets.com/bank.phtml'
+
   # Signup for Bank Account
-  if browser.td(class: 'contentModuleHeaderAlt').exist?
+  if browser.td(class: 'contentModuleHeaderAlt', text: /Create a Bank Account/).exists?
     browser.text_field(name: 'name').set USERNAME
     browser.text_field(name: 'add1').set '600 Cheshire Way'
     browser.select_list(name: 'employment').select 'Korbat Keeper'
@@ -28,12 +29,14 @@ begin
     browser.text_field(name: 'initial_deposit').set 1100
     browser.button(value: 'Sign Me Up').click
   else
-    browser.button(value: /Collect Interest/).click
+    collect_interest = browser.button(value: /Collect Interest/)
+    collect_interest.click if collect_interest.exist?
   end
 
   # Visit Coltzan's shrine
   browser.goto 'http://www.neopets.com/desert/shrine.phtml'
-  browser.button(value: 'Approach the Shrine').click
+  approach_shrine = browser.button(value: 'Approach the Shrine')
+  approach_shrine.click if approach_shrine.exists?
 
   # Freebies (once a month)
   browser.goto 'http://www.neopets.com/freebies/index.phtml'
@@ -58,13 +61,19 @@ begin
 
   # Lab ray
   browser.goto 'http://www.neopets.com/lab2.phtml'
-  browser.radio(value: NEOPET_NAME).click
-  browser.button(value: 'Carry on with the Experiment!').click
+  neopet_name = browser.radio(value: NEOPET_NAME)
+  if neopet_name.exists?
+    neopet_name.click
+    browser.button(value: 'Carry on with the Experiment!').click
+  end
 
   # Fruit machine
   browser.goto 'http://www.neopets.com/desert/fruit/index.phtml'
-  browser.button(value: 'Spin, spin, spin!').click
-  Watir::Wait.until { browser.div(id: 'fruitResult').visible? }
+  spin = browser.button(value: 'Spin, spin, spin!')
+  if spin.exists?
+    browser.button(value: 'Spin, spin, spin!').click
+    Watir::Wait.until { browser.div(id: 'fruitResult').visible? }
+  end
 
   # Solve the daily puzzle
   jellyneoBrowser.goto 'http://www.jellyneo.net/?go=dailypuzzle'
