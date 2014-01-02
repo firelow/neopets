@@ -15,21 +15,8 @@ rescue Exception => e
   exit 1
 end
 
-require 'debugger' if config["debugger"]
-
 USERNAME = config["np_user"]
 PASSWORD = config["np_pass"]
 NEOPET_NAME = config["np_name"]
 NP_TO_KEEP = config["np_max_undeposited_pts"] # Maximum NP to leave undeposited
 CLOSE_BROWSER = config["close_browser_on_exit"]
-
-def break(steps = 1, &block)
-  if !config["debugger"]
-    yield if block
-    return
-  end
-
-  debugger(steps) do
-    yield if block
-  end
-end
