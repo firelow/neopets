@@ -6,6 +6,8 @@ Help Lena get some paint brushes!
 * `gem install bundler`
 * `bundle install`
 * If running in Chrome, download the [chromedriver](http://chromedriver.storage.googleapis.com/index.html) (version >= 2.8) and drop it somewhere in your PATH.
+* `cp config/config_sample.yml config/config.yml`
+* Edit the config.yml file with your neopet credentials.
 
 ### Running
 * `bundle exec ruby get_neopoints.rb`
@@ -14,3 +16,4 @@ Help Lena get some paint brushes!
 * Have a bank account
 * Access to the Lab Ray (TODO, make optional)
 * Account must be at least 48 hours old.
+
