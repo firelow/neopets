@@ -110,7 +110,7 @@ begin
     isAcross = true
     for answer in answers
       isAcross = false if /Down/.match(answer)
-      tokenized = /(\d+)\. (.*)/.match(answer)
+      tokenized = /^(\d+)\. (.*)/.match(answer)
       next unless tokenized
 
       answerNumber = tokenized[1]
