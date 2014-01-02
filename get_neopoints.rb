@@ -20,7 +20,7 @@ begin
   browser.goto 'http://www.neopets.com/bank.phtml'
   # Signup for Bank Account
   if browser.td(class: 'contentModuleHeaderAlt').exist?
-    browser.text_field(name: 'name').set config["np_user"]
+    browser.text_field(name: 'name').set USERNAME
     browser.text_field(name: 'add1').set '600 Cheshire Way'
     browser.select_list(name: 'employment').select 'Korbat Keeper'
     browser.select_list(name: 'salary').select '10,000 to 25,000 NP'
