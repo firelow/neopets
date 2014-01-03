@@ -46,6 +46,11 @@ begin
   omelette = browser.button(value: 'Grab some Omelette')
   omelette.click if omelette.exists?
 
+  # Tombola
+  browser.goto 'http://www.neopets.com/island/tombola.phtml'
+  tombola = browser.button(value: 'Play Tombola!')
+  tombola.click if tombola.exists?
+
   # Visit the Snowager
   browser.goto 'http://www.neopets.com/winter/snowager.phtml'
   snowager = browser.button(value: 'Attempt to steal a piece of treasure')
@@ -83,51 +88,51 @@ begin
   if select_list.exists?
     select_list.select answer
     browser.button(class: 'medText submit').click
+  end
 
-    # Faerie crossword. Solutions on cheat site look something like this:
-    #
-    # Across:
-    # 1. soup
-    # 3. mud
-    # 5. toy
-    # 6. exquisite
-    # 7. pink
-    # 8. mug
-    # 10. oop
-    # 11. web
-    # 13. thade
+  # Faerie crossword. Solutions on cheat site look something like this:
+  #
+  # Across:
+  # 1. soup
+  # 3. mud
+  # 5. toy
+  # 6. exquisite
+  # 7. pink
+  # 8. mug
+  # 10. oop
+  # 11. web
+  # 13. thade
 
-    # Down:
-    # 2. prigpants
-    # 4. december
-    # 5. tea
-    # 9. gold
-    # 10. one
-    # 12. pad
-    browser.goto 'http://www.neopets.com/games/crossword/crossword.phtml'
-    jellyneoBrowser.goto 'http://www.jellyneo.net/?go=fcrossword'
-    answers = jellyneoBrowser.div(class: 'article').text.split(/\n/)
-    isAcross = true
-    for answer in answers
-      isAcross = false if /Down/.match(answer)
-      tokenized = /(\d+)\. (.*)/.match(answer)
-      next unless tokenized
+  # Down:
+  # 2. prigpants
+  # 4. december
+  # 5. tea
+  # 9. gold
+  # 10. one
+  # 12. pad
+  browser.goto 'http://www.neopets.com/games/crossword/crossword.phtml'
+  jellyneoBrowser.goto 'http://www.jellyneo.net/?go=fcrossword'
+  answers = jellyneoBrowser.div(class: 'article').text.split(/\n/)
+  isAcross = true
+  for answer in answers
+    isAcross = false if /Down/.match(answer)
+    tokenized = /^(\d+)\. (.*)/.match(answer)
+    next unless tokenized
 
-      answerNumber = tokenized[1]
-      answerPhrase = tokenized[2]
+    answerNumber = tokenized[1]
+    answerPhrase = tokenized[2]
 
-      # All 'across' links on the left, 'down' links on the right. If there are
-      # two results and this is a down answer, click the second one.
-      crosswordLinks = browser.links(text: /#{answerNumber}\. /)
-      if crosswordLinks.length > 1 and not isAcross
-        crosswordLinks[1].click
-      else
-        crosswordLinks[0].click
-      end
-
-      browser.text_field(name: 'x_word').set answerPhrase
-      browser.button(value: 'Go').click
+    # All 'across' links on the left, 'down' links on the right. If there are
+    # two results and this is a down answer, click the second one.
+    crosswordLinks = browser.links(text: /#{answerNumber}\. /)
+    if crosswordLinks.length > 1 and not isAcross
+      crosswordLinks[1].click
+    else
+      crosswordLinks[0].click
     end
+
+    browser.text_field(name: 'x_word').set answerPhrase
+    browser.button(value: 'Go').click
   end
 
   # Deposit NP into bank, leave some NP
