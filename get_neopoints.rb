@@ -46,6 +46,11 @@ begin
   omelette = browser.button(value: 'Grab some Omelette')
   omelette.click if omelette.exists?
 
+  # Tombola
+  browser.goto 'http://www.neopets.com/island/tombola.phtml'
+  tombola = browser.button(value: 'Play Tombola!')
+  tombola.click if tombola.exists?
+
   # Visit the Snowager
   browser.goto 'http://www.neopets.com/winter/snowager.phtml'
   snowager = browser.button(value: 'Attempt to steal a piece of treasure')
