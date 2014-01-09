@@ -116,7 +116,7 @@ begin
   isAcross = true
   for answer in answers
     isAcross = false if /Down/.match(answer)
-    tokenized = /^(\d+)\. (.*)/.match(answer)
+    tokenized = /(\d+)\. (.*)/.match(answer)
     next unless tokenized
 
     answerNumber = tokenized[1]
@@ -124,7 +124,7 @@ begin
 
     # All 'across' links on the left, 'down' links on the right. If there are
     # two results and this is a down answer, click the second one.
-    crosswordLinks = browser.links(text: /#{answerNumber}\. /)
+    crosswordLinks = browser.links(text: /^#{answerNumber}\. /)
     if crosswordLinks.length > 1 and not isAcross
       crosswordLinks[1].click
     else
