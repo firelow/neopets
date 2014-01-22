@@ -14,7 +14,8 @@ begin
 
   # Get free jelly
   browser.goto 'http://www.neopets.com/jelly/jelly.phtml'
-  browser.button(value: 'Grab some Jelly').click
+  jelly = browser.button(value: 'Grab some Jelly')
+  jelly.click if jelly.exist?
 
   # Collect bank interest
   browser.goto 'http://www.neopets.com/bank.phtml'
