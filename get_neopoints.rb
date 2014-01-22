@@ -1,9 +1,17 @@
 #!/usr/bin/env ruby
 
+require 'rubygems'
+require 'bundler'
+Bundler.setup
+require 'nokogiri'
+require 'open-uri'
 require_relative 'init'
 
+def jellyneo(page)
+  Nokogiri::HTML(open("http://www.jellyneo.net/?go=#{page}"))
+end
+
 browser = Watir::Browser.new :chrome
-jellyneoBrowser = Watir::Browser.new :chrome
 
 begin
   # Login
@@ -82,8 +90,8 @@ begin
   end
 
   # Solve the daily puzzle
-  jellyneoBrowser.goto 'http://www.jellyneo.net/?go=dailypuzzle'
-  answer = jellyneoBrowser.span(style: 'font-size:15px; font-weight:bold; color:blue').text
+  puzzlepage = jellyneo('dailypuzzle')
+  answer = puzzlepage.xpath("//span[contains(@style, 'font-size:15px; font-weight:bold; color:blue')]").text
   browser.goto 'http://www.neopets.com/community/index.phtml'
   select_list = browser.select_list(name: 'trivia_response')
   if select_list.exists?
@@ -112,8 +120,8 @@ begin
   # 10. one
   # 12. pad
   browser.goto 'http://www.neopets.com/games/crossword/crossword.phtml'
-  jellyneoBrowser.goto 'http://www.jellyneo.net/?go=fcrossword'
-  answers = jellyneoBrowser.div(class: 'article').text.split(/\n/)
+  crosswordpage = jellyneo('fcrossword')
+  answers = crosswordpage.css(".article").text.split(/\n/)
   isAcross = true
   for answer in answers
     isAcross = false if /Down/.match(answer)
@@ -146,6 +154,5 @@ begin
     browser.alert.ok
   end
 ensure
-  jellyneoBrowser.close
   browser.close if CLOSE_BROWSER
 end

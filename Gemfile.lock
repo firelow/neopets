@@ -5,7 +5,10 @@ GEM
       ffi (~> 1.0, >= 1.0.11)
     commonwatir (4.0.0)
     ffi (1.9.3)
+    mini_portile (0.5.2)
     multi_json (1.8.4)
+    nokogiri (1.6.1)
+      mini_portile (~> 0.5.0)
     rubyzip (1.1.0)
     selenium-webdriver (2.39.0)
       childprocess (>= 0.2.5)
@@ -23,5 +26,6 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  nokogiri
   watir
   watir-webdriver
